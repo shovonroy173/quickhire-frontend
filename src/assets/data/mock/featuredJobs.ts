@@ -1,0 +1,40 @@
+import { Job } from '@/types/job.types';
+
+export const FEATURED_JOBS: Job[] = [
+  {
+    id: 'f1',
+    title: 'Email Marketing',
+    company: 'Revolution',
+    location: 'Madrid, Spain',
+    category: 'Marketing',
+    type: 'Full-time',
+    description: 'Verified to looking for Email Marketing to help team ma ...',
+    postedAt: '2024-01-15',
+    verified: true,
+    featured: true,
+  },
+  {
+    id: 'f2',
+    title: 'Brand Designer',
+    company: 'Dropbox',
+    location: 'San Francisco, US',
+    category: 'Design',
+    type: 'Full-time',
+    description: 'Verified to looking for Brand Designer to help the team t...',
+    postedAt: '2024-01-14',
+    verified: true,
+    featured: true,
+  },
+  {
+    id: 'f3',
+    title: 'Brand Strategist',
+    company: 'GoDaddy',
+    location: 'Marseille, France',
+    category: 'Marketing',
+    type: 'Full-time',
+    description: 'Verified to looking for Brand Strategist to join the team...',
+    postedAt: '2024-01-13',
+    verified: true,
+    featured: true,
+  },
+];
