@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import heroImage from "@/assets/images/hero-image.png";
 import ctaImage from "@/assets/images/cta-image.png";
 import heroUnderline from "@/assets/images/hero-underline.png";
@@ -235,13 +235,12 @@ export function HomeHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.user.token);
   const currentUser = useAppSelector((state) => state.user.currentUser);
   const { data: me } = useMeQuery(undefined, { skip: !token || Boolean(currentUser) });
   const loggedInUser = currentUser ?? me ?? null;
-  const currentPath = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+  const currentPath = pathname || "/";
   const loginHref = `/auth?mode=login&redirect=${encodeURIComponent(currentPath || "/")}`;
   const signupHref = `/auth?mode=signup&redirect=${encodeURIComponent(currentPath || "/")}`;
 
