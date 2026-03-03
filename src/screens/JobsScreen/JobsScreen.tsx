@@ -8,7 +8,13 @@ import JobCardSkeleton from '@/components/skeletons/JobCardSkeleton';
 import { MOCK_CATEGORIES } from '@/assets/data/mock/categories';
 import useJobs from '@/hooks/useJobs';
 
-const JobsScreen: React.FC = () => {
+interface JobsScreenProps {
+  initialQuery?: string;
+}
+
+const JobsScreen: React.FC<JobsScreenProps> = ({
+  initialQuery = '',
+}) => {
   const {
     jobs,
     loading,
@@ -17,10 +23,17 @@ const JobsScreen: React.FC = () => {
     searchJobs,
     filterByCategory,
     selectedCategory,
+    searchQuery,
     loadMore,
     hasMore,
   } = useJobs();
   const sentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (initialQuery) {
+      searchJobs(initialQuery);
+    }
+  }, [initialQuery, searchJobs]);
 
   useEffect(() => {
     if (!hasMore || isFetching) {
@@ -55,6 +68,7 @@ const JobsScreen: React.FC = () => {
         <input
           type="search"
           placeholder="Search jobs"
+          value={searchQuery}
           onChange={(event) => searchJobs(event.target.value)}
           className="w-full rounded-lg border border-gray-300 px-3 py-2"
         />

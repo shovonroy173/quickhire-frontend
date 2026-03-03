@@ -1,5 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { JobCardProps } from './JobCard.types';
 import Badge from '@/components/atoms/Badge';
 
@@ -9,6 +9,7 @@ export const JobCard: React.FC<JobCardProps> = ({
   onSave,
   featured = false,
 }) => {
+  const router = useRouter();
   const {
     id,
     title,
@@ -24,17 +25,23 @@ export const JobCard: React.FC<JobCardProps> = ({
   return (
     <div className={`
       bg-white rounded-lg border border-gray-200 p-6
-      hover:shadow-lg transition-shadow duration-200
+      hover:shadow-lg transition-shadow duration-200 cursor-pointer
       ${featured ? 'ring-2 ring-blue-500 ring-opacity-50' : ''}
-    `}>
+    `}
+      role="link"
+      tabIndex={0}
+      onClick={() => router.push(`/jobs/${id}`)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          router.push(`/jobs/${id}`);
+        }
+      }}
+    >
       <div className="flex justify-between items-start mb-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <h3 className="text-lg font-semibold text-gray-900">
-              <Link href={`/jobs/${id}`} className="hover:text-blue-600">
-                {title}
-              </Link>
-            </h3>
+            <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600">{title}</h3>
             {verified && (
               <Badge variant="success" size="sm">Verified</Badge>
             )}
@@ -78,7 +85,10 @@ export const JobCard: React.FC<JobCardProps> = ({
         <div className="flex gap-2">
           {onSave && (
             <button
-              onClick={() => onSave(id)}
+              onClick={(event) => {
+                event.stopPropagation();
+                onSave(id);
+              }}
               className="text-gray-400 hover:text-blue-600 transition-colors"
             >
               <span className="sr-only">Save job</span>
@@ -89,7 +99,10 @@ export const JobCard: React.FC<JobCardProps> = ({
           )}
           {onApply && (
             <button
-              onClick={() => onApply(id)}
+              onClick={(event) => {
+                event.stopPropagation();
+                onApply(id);
+              }}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700 transition-colors"
             >
               Apply Now
