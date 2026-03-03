@@ -38,9 +38,9 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ jobId }) => {
     ? `quickhire_applied_${jobId}_${loggedInUser.email.toLowerCase()}`
     : null;
   const isApplied =
-    Boolean(appliedStorageKey) &&
-    typeof window !== 'undefined' &&
-    window.localStorage.getItem(appliedStorageKey) === '1';
+    typeof window !== 'undefined' && appliedStorageKey
+      ? window.localStorage.getItem(appliedStorageKey) === '1'
+      : false;
 
   const {
     register,
