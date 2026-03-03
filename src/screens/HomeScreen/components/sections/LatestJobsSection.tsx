@@ -20,7 +20,7 @@ export function LatestJobsSection({ jobs, loading = false }: LatestJobsSectionPr
       <div className="pointer-events-none absolute -right-12.5 top-67.5 z-0 h-52.5 w-145 -rotate-26 border border-[#c5c8e8] opacity-70" />
       <div className="pointer-events-none absolute -right-10 top-115 z-0 h-52.5 w-140 -rotate-26 border border-[#c5c8e8] opacity-70" />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="relative z-10 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <LoadableCollection
           loading={loading}
           items={jobs}
